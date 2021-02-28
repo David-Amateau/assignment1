@@ -31,15 +31,14 @@ public class AccountHolder {
 	 *  This constructor will be called if no parameters are passed when an
 	 *  an AccountHolder is created.
 	 */
-	AccountHolder() {
-		
+	public AccountHolder() {
 	}
 	
 	/*
 	 * This constructor will be called if all parameters are sent in their
 	 * correct order when a new Account Holder is created.
 	 */
-	AccountHolder(String firstName, String middleName, String lastName, String ssn, 
+	public AccountHolder(String firstName, String middleName, String lastName, String ssn, 
 			double checkingAccountOpeningBalance, double savingsAccountOpeningBalance) {
 		
 		this.firstName = firstName;
@@ -93,12 +92,12 @@ public class AccountHolder {
 	}
 	
 	// This method will return the Account Holder's Checking Account
-	CheckingAccount getCheckingAccount() {
+	public CheckingAccount getCheckingAccount() {
 		return checkingAccount;
 	}
 	
 	// This method will return the Account Holder's Savings Account
-	SavingsAccount getSavingsAccount() {
+	public SavingsAccount getSavingsAccount() {
 		return savingsAccount;
 	}
 	
@@ -108,9 +107,10 @@ public class AccountHolder {
 	public String toString() {
 		String accountHolderInfo = "Name: " + getFirstName() + " " + getMiddleName()
 				+ " " + getLastName() +
-				"\nSSN: " + getSSN() + 
-				checkingAccount.toString() +
+				"\nSSN: " + getSSN() + "\n" +
+				checkingAccount.toString() + "\n" +
 				savingsAccount.toString();
+		
 		return accountHolderInfo;
 	}
 }

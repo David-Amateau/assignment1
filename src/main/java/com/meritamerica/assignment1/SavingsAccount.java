@@ -1,5 +1,6 @@
 package com.meritamerica.assignment1;
 
+import java.text.DecimalFormat;
 
 public class SavingsAccount{
 	
@@ -9,9 +10,9 @@ public class SavingsAccount{
 	private double savingsInterestRate = 0.01;
 	private double savingsAccFutureValue;
 	
+	DecimalFormat money = new DecimalFormat("0.00");
 	
-	
-	// This method will set the opening balance of the Savings Account.
+	// This constructor will set the opening balance of the Savings Account.
 	public SavingsAccount(double openingBalance){
 		savingsAccBalance = openingBalance;	
 	}
@@ -28,12 +29,12 @@ public class SavingsAccount{
 	
 	// This method will withdraw money and update the balance
 	public boolean withdraw(double amount) {
-		if (savingsAccBalance <= 0 && amount > savingsAccBalance ) {
-			System.out.println("Insufficient Funds");
+		if (savingsAccBalance <= 0 || amount > savingsAccBalance) {
+			System.out.println("Insufficient Funds\n");
 			return false;
 		} else {
 			savingsAccBalance = savingsAccBalance - amount;
-			System.out.println("Your New Account Balance is" + savingsAccBalance);
+			System.out.println("Your New Savings Account Balance is: $" + money.format(savingsAccBalance) + "\n");
 			return true;
 		}
 	}
@@ -42,10 +43,10 @@ public class SavingsAccount{
 	public boolean deposit(double amount) {
 		if(amount > 0) {
 			savingsAccBalance = savingsAccBalance + amount;
-			System.out.println("Your new account balance is" + savingsAccBalance);
+			System.out.println("Your New Account Balance is: $" + money.format(savingsAccBalance) + "\n");
 			return true;
 		} else {
-			System.out.println("System Error");
+			System.out.println("System Error\n");
 			return false;
 		}
 	}
@@ -53,18 +54,15 @@ public class SavingsAccount{
 	// This method will calculate the future value of the account in x years
 	public double futureValue(int years) {
 		savingsAccFutureValue = savingsAccBalance * 
-				(1 + Math.pow(savingsInterestRate, years));
-		System.out.println("In " + years + " years, the future value of the accout will be " +
-				savingsAccFutureValue);
-		
+				(Math.pow(1 + savingsInterestRate, years));
 		return savingsAccFutureValue;	
 	}
 	
 	@Override
 	public String toString() {
-		String savingsInfo = "Savings Account Balance: $" + getBalance() + 
+		String savingsInfo = "\nSavings Account Balance: $" + money.format(getBalance()) + 
 				"\nSavings Account Interest Rate: " + getInterestRate() +
-				"\nSavings Account Balance in 3 years: $" + futureValue(3);
+				"\nSavings Account Balance in 3 years: $" + money.format(futureValue(3)) + "\n";
 		return savingsInfo;
 	}	
 }

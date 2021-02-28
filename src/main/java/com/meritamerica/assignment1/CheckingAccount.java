@@ -1,5 +1,7 @@
 package com.meritamerica.assignment1;
 
+import java.text.DecimalFormat;
+
 public class CheckingAccount {
 
 
@@ -9,9 +11,9 @@ public class CheckingAccount {
 	private double checkingAccountInterestRate = 0.0001;
 	private double checkingAccountFutureValue;
 
+	DecimalFormat money = new DecimalFormat("0.00");
 
-
-	// This method will set the opening balance of the Checking Account
+	// This constructor will set the opening balance of the Checking Account
 	public CheckingAccount(double openingBalance) {
 		checkingAccountBalance = openingBalance;
 	}
@@ -28,12 +30,12 @@ public class CheckingAccount {
 
 	// This method will withdraw money and update the balance
 	public boolean withdraw(double amount) {
-		if (checkingAccountBalance <= 0 && amount > checkingAccountBalance) {
-			System.out.println("Insufficient Funds");
+		if (checkingAccountBalance <= 0 || amount > checkingAccountBalance) {
+			System.out.println("Insufficient Funds\n");
 			return false; 
 		} else {
 			checkingAccountBalance = checkingAccountBalance - amount;
-			System.out.println("Your new Account Balance is: $" + checkingAccountBalance);
+			System.out.println("Your New Account Balance is: $" + checkingAccountBalance + "\n");
 			return true;
 	  }
 	}
@@ -42,10 +44,10 @@ public class CheckingAccount {
 	public boolean deposit(double amount) {
 		if (amount > 0) {
 			checkingAccountBalance = checkingAccountBalance + amount;
-			System.out.println("Your new Account Balance is: $" + checkingAccountBalance);
+			System.out.println("Your New Checking Account Balance is: $" + money.format(checkingAccountBalance) + "\n");
 			return true;
 		} else {
-			System.out.println("System Error");
+			System.out.println("System Error\n");
 			return false;
 		}
 	}
@@ -53,18 +55,15 @@ public class CheckingAccount {
 	// This method will calculate the future value of the account in x years
 	public double futureValue(int years) {
 		checkingAccountFutureValue = checkingAccountBalance * 
-				(1 + Math.pow(checkingAccountInterestRate, years));
-		System.out.println("In " + years + " years, the future value of the accout will be " 
-				+ checkingAccountFutureValue);
-		
+				(Math.pow(1 + checkingAccountInterestRate, years));
 		return checkingAccountFutureValue;
 	}
 
 	@Override
 	public String toString() {
-		String checkingInfo = "\nChecking Account Balance: $" +  getBalance() + 
+		String checkingInfo = "\nChecking Account Balance: $" + money.format(getBalance()) + 
 				"\nChecking Account Interest Rate: " + getInterestRate() +
-				"\nChecking Account Baance in 3 years: $" + futureValue(3);
+				"\nChecking Account Balance in 3 years: $" + money.format(futureValue(3));
 		return checkingInfo;
 	}
 }
